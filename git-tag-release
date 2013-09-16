@@ -12,14 +12,16 @@ use Getopt::Long;
 ##
 ## create a git tag during release just by running this program
 
-my %opt = ( label => 'release' );
+my %opt = ( label => 'release',
+            sign  => 1 );
 
 GetOptions(\%opt,
            'quiet',
            'label=s',
+           'sign!',
            'who=s')
   or die <<_USAGE_;
-usage: $0 [--quiet] [--label=release] [--who=username]
+usage: $0 [--quiet] [--no-sign] [--label=release] [--who=username]
 _USAGE_
 
 unless ($opt{who}) {
@@ -50,10 +52,15 @@ my $our_lovely_tag = $tag->($uniq);
 
 ## bag it, tag it, sell it to the butcher in the store
 print "tagging branch with '$our_lovely_tag'\n";
-system('git', 'tag', $our_lovely_tag)
+my @tag_cmd = ('git', 'tag', ( $opt{sign}
+                               ? ('-s', $our_lovely_tag, '-m', "- automatically tagged by $opt{who}")
+                               : ($our_lovely_tag) ));
+system @tag_cmd
   and die <<"_SORRY_";
 
 Sorry to bother you, but I couldn't tag this branch with
 '$our_lovely_tag'; you'll have to tag it on your own.
 
 _SORRY_
+
+exit;

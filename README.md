@@ -32,6 +32,11 @@ In your `Makefile` target, do something like this:
   might prefer 'build' or something similar to indicate the deployment
   was automatic (if it was).
 
+* no-sign
+
+  if specified, then only a simple git tag will be created. Otherwise,
+  `git-tag-release` will create a signed, annotated tag by default.
+
 ## usage ##
 
 Normally just:
@@ -42,27 +47,29 @@ but possibly:
 
     git-tag-release --label=bugfix
 
+or even:
+
+    git-tag-release --no-sign --who jenkins
+
 This will create a new tag with the current date, label, and
 user. Like this:
 
-    130912a-release-scott
+    130912a-release-jenkins
 
 If you run it more than once in a day, the 'a' increments:
 
-    130912b-release-scott
+    130912b-release-jenkins
 
 If you get to 'z', then it will still increment (carry the 'z'):
 
-    130912aa-release-scott
+    130912aa-release-jenkins
 
 etc.
 
 Go ahead and try it. If you don't like the tag, you can delete it:
 
-    git tag --delete 130912b-release-scott
+    git tag --delete 130912b-release-jenkins
 
 ## author ##
 
-Scott Wiersdorf
-scott@perlcode.org
-scott@betterservers.com
+Scott Wiersdorf: <scott@perlcode.org>, <scott@betterservers.com>
