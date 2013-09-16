@@ -32,7 +32,7 @@ unless ($opt{who}) {
 }
 
 my $uniq = 'a';
-my $tag = sub { join('-', strftime("%y%m%d", localtime) . shift, $opt{label}, $opt{who}) };
+my $tag = sub { join('-', $opt{label}, strftime("%y%m%d", localtime) . shift, $opt{who}) };
 
 ## gather at existing tags
 open my $pipe, "-|", "git", "tag" or die $!;
