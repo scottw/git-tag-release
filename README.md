@@ -32,10 +32,9 @@ In your `Makefile` target, do something like this:
   might prefer 'build' or something similar to indicate the deployment
   was automatic (if it was).
 
-* no-sign
+* sign
 
-  if specified, then only a simple git tag will be created. Otherwise,
-  `git-tag-release` will create a signed, annotated tag by default.
+  if specified, `git-tag-release` will create a signed, annotated tag.
 
 ## usage ##
 
@@ -49,7 +48,7 @@ but possibly:
 
 or even:
 
-    git-tag-release --no-sign --who jenkins
+    git-tag-release --sign --who jenkins
 
 This will create a new tag with the current date, label, and
 user. Like this:
