@@ -13,15 +13,17 @@ use Getopt::Long;
 ## create a git tag during release just by running this program
 
 my %opt = ( label => 'release',
-            sign  => 0 );
+            sign  => 0,
+            separator => '-' );
 
 GetOptions(\%opt,
            'quiet',
            'label=s',
            'sign',
+           'separator=s',
            'who=s')
   or die <<_USAGE_;
-usage: $0 [--quiet] [--sign] [--label=release] [--who=username]
+usage: $0 [--quiet] [--sign] [--sep=.] [--label=release] [--who=username]
 _USAGE_
 
 unless ($opt{who}) {
@@ -32,7 +34,7 @@ unless ($opt{who}) {
 }
 
 my $uniq = 'a';
-my $tag = sub { join('-', $opt{label}, strftime("%y%m%d", localtime) . shift, $opt{who}) };
+my $tag = sub { join($opt{separator}, $opt{label}, strftime("%y%m%d", localtime) . shift, $opt{who}) };
 
 ## gather at existing tags
 open my $pipe, "-|", "git", "tag" or die $!;

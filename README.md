@@ -36,6 +36,11 @@ In your `Makefile` target, do something like this:
 
   if specified, `git-tag-release` will create a signed, annotated tag.
 
+* separator (sep)
+
+  if specified, the components of the tag will be separated with this
+  character. Defaults to a hyphen ('-')
+
 ## usage ##
 
 Normally just:
@@ -44,7 +49,7 @@ Normally just:
 
 but possibly:
 
-    git-tag-release --label=bugfix
+    git-tag-release --label=bugfix --sep=/
 
 or even:
 
